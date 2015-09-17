@@ -14,7 +14,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // MARK: Variables
     //----------------------------------------------------------------------------------------------------------------
     
-    //Instances of class in "Model" folder
+    //Instances of class in "Helper Classes" folder
     let graphicsTools = GraphicsClass()
     let networking1 = networkingClass()
     
