@@ -39,31 +39,31 @@ class PlayerView: UIViewController {
         
         //creating the url
         
-        var YTstring = "https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&q=\(query)&type=video&key=AIzaSyBf0DIPzfbp_8TUnBjHiUL8TUGOPLT9n8E"
-        var YTurl = NSURL(string: YTstring)
+        let YTstring = "https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&q=\(query)&type=video&key=AIzaSyBf0DIPzfbp_8TUnBjHiUL8TUGOPLT9n8E"
+        let YTurl = NSURL(string: YTstring)
         
         //If url came out nil, we present an alert view for the error:
         
         if (YTurl == nil) {
             
-            println(YTurl)
+            print(YTurl)
             self.activityIndicatorHolder.hidden = true
-            println("url formatting error")
+            print("url formatting error")
 
-            var alert = UIAlertController(title: "Video not found.", message: "Sorry, there was an error in the video search.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Video not found.", message: "Sorry, there was an error in the video search.", preferredStyle: UIAlertControllerStyle.Alert)
             self.presentViewController(alert, animated: true, completion: nil)
             
             alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { action in
                 switch action.style{
                 case .Default:
-                    println("default")
+                    print("default")
                     self.navigationController?.popToRootViewControllerAnimated(true)
                     
                 case .Cancel:
-                    println("cancel")
+                    print("cancel")
                     
                 case .Destructive:
-                    println("destructive")
+                    print("destructive")
                 }
             }))
 
@@ -84,9 +84,9 @@ class PlayerView: UIViewController {
                 dict.loadData(data!)
                 
                 //We construct a url and send it to the webview
-                var string1 = "https://www.youtube.com/watch?v=\(dict.id)" as String
-                println(string1)
-                var url1 = NSURL(string: string1)
+                let string1 = "https://www.youtube.com/watch?v=\(dict.id)" as String
+                print(string1)
+                let url1 = NSURL(string: string1)
                 let request = NSMutableURLRequest(URL: url1!)
                 self.webViewOutlet.loadRequest(request)
             }

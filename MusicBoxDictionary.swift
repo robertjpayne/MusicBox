@@ -14,7 +14,7 @@ class MusicBoxDictionary {
     
     func loadData (input: NSData) {
         
-        let dictionaryA = NSJSONSerialization.JSONObjectWithData(input, options: nil, error: nil) as! Dictionary<NSObject, AnyObject>
+        let dictionaryA = (try! NSJSONSerialization.JSONObjectWithData(input, options: [])) as! Dictionary<NSObject, AnyObject>
         let arrayB = dictionaryA["items"] as! Array<Dictionary<NSObject, AnyObject>>
         let firstEntryC = arrayB[0] as Dictionary<NSObject, AnyObject>
         let snippetD = firstEntryC["id"] as! Dictionary<NSObject, AnyObject>

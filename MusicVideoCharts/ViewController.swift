@@ -63,9 +63,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         //We get the selected row's info, save it to a variable, and perform the segue to the "PlayerView" controller.
-        var track:NSDictionary = topTracks[indexPath.row] as! NSDictionary
-        var trackTitle = track["track_name"] as! String
-        var artistTitle = track["artist_name"] as! String
+        let track:NSDictionary = topTracks[indexPath.row] as! NSDictionary
+        let trackTitle = track["track_name"] as! String
+        let artistTitle = track["artist_name"] as! String
         trackAndNameQuery = trackTitle + " " + artistTitle
         
         performSegueWithIdentifier("segue1", sender: self)
@@ -84,23 +84,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) 
         
         //We match the tracks's position in the array with the indexPath of the table view cell.
-        var track:NSDictionary = topTracks[indexPath.row] as! NSDictionary
+        let track:NSDictionary = topTracks[indexPath.row] as! NSDictionary
         
         //We also use that indexPath to update the "#1, #2, etc" position label
-        var positionString = "#\(indexPath.row+1)"
+        let positionString = "#\(indexPath.row+1)"
         let positionLabel = cell.viewWithTag(3) as! UILabel
         positionLabel.text = positionString
         
         //We set the label as the artist name
-        var artistName = track["artist_name"] as? String
+        let artistName = track["artist_name"] as? String
         let titleCustom = cell.viewWithTag(1) as! UILabel
         titleCustom.text = artistName
         
         //Same for the tracks's title
-        var trackName = track["track_name"] as? String
+        let trackName = track["track_name"] as? String
         let subTitleCustom = cell.viewWithTag(2) as! UILabel
         subTitleCustom.text = trackName
         
@@ -124,17 +124,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         } else { rankType = "most_viral" }
         
         //Construct the url with the variable rankType
-        var baseURL = "http://charts.spotify.com"
-        var latestWeeklyString = "/api/tracks/\(rankType)/global/weekly/latest"
-        var urlString = baseURL.stringByAppendingString(latestWeeklyString)
-        var url = NSURL(string: urlString)
+        let baseURL = "http://charts.spotify.com"
+        let latestWeeklyString = "/api/tracks/\(rankType)/global/weekly/latest"
+        let urlString = baseURL.stringByAppendingString(latestWeeklyString)
+        let url = NSURL(string: urlString)
         
         //Once we've built the url we pass it to a networking function found in "HTTPrequests.swift"
         networking1.httpRequest1(url, completion: { (data, HTTPStatusCode, error) -> Void in
             
             if HTTPStatusCode == 200 && error == nil {
                 //We convert the raw JSON into a dictionary object
-                let dictionaryA = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: nil) as! Dictionary<NSObject, AnyObject>
+                let dictionaryA = (try! NSJSONSerialization.JSONObjectWithData(data!, options: [])) as! Dictionary<NSObject, AnyObject>
                 //The only object is the array of tracks found in the "tracks" key.
                 let arrayB = dictionaryA["tracks"] as! Array<Dictionary<NSObject, AnyObject>>
                 //We save this array
