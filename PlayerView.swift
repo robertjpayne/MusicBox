@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftyJSON
 
 class PlayerView: UIViewController {
     
@@ -78,13 +79,11 @@ class PlayerView: UIViewController {
                 
                  self.activityIndicatorHolder.hidden = false
                 
-                //We make an instance of a custom class
-                let dict = MusicBoxDictionary()
-                //We feed it the data
-                dict.loadData(data!)
+                //We get the video ID from the JSON using the SwiftyJSON framework.
+                let id = JSON(data: data!)["items"][0]["id"]["videoId"].stringValue
                 
                 //We construct a url and send it to the webview
-                let string1 = "https://www.youtube.com/watch?v=\(dict.id)" as String
+                let string1 = "https://www.youtube.com/watch?v=\(id)" as String
                 print(string1)
                 let url1 = NSURL(string: string1)
                 let request = NSMutableURLRequest(URL: url1!)

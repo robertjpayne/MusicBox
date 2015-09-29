@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
@@ -133,6 +134,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         networking1.httpRequest1(url, completion: { (data, HTTPStatusCode, error) -> Void in
             
             if HTTPStatusCode == 200 && error == nil {
+                
                 //We convert the raw JSON into a dictionary object
                 let dictionaryA = (try! NSJSONSerialization.JSONObjectWithData(data!, options: [])) as! Dictionary<NSObject, AnyObject>
                 //The only object is the array of tracks found in the "tracks" key.
